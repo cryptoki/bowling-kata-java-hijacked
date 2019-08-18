@@ -27,6 +27,9 @@ public class BowlingGame {
                 && numberOfAvailableBonusRolls() == 0;
     }
 
+    public int getStandingPins() {
+        return getFrame().getPinsUp();
+    }
 
     private int scoreForFrame(int frameNumber) {
         int[] rolls = getRollsAsArray();

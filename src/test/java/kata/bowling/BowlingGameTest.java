@@ -98,6 +98,12 @@ public class BowlingGameTest {
     }
 
     @Test
+    void standingPinsAfterThreeRolls() {
+        rollWith(10, 3, 7);
+        assertEquals(10, bowlingGame.getStandingPins());
+    }
+
+    @Test
     void toStringShouldLookPretty() {
         rollWith(1, 4,
                 4, 5,
