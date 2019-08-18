@@ -70,7 +70,7 @@ public class BowlingGame {
             output.append("[")
                     .append(frames.subList(FRAMES_PER_GAME - 1, frames.size() )
                             .stream()
-                            .map(frame -> frame.isFinished() ? frame.toString() : frame.getRolls().get(0).toString())
+                            .map(Frame::toString)
                             .reduce("", (acc, frameOutput) -> acc + frameOutput + ","))
                     .replace(output.length() - 1, output.length(), "]");
         }
