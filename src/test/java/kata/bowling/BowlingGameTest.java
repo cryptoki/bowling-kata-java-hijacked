@@ -8,4 +8,10 @@ public class BowlingGameTest {
     void canCreateBowlingGame() {
         new BowlingGame();
     }
+
+    @Test
+    void canRollBall() {
+        BowlingGame bowlingGame = new BowlingGame();
+        bowlingGame.roll(0);
+    }
 }
