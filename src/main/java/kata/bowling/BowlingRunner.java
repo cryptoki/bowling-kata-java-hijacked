@@ -8,7 +8,7 @@ public class BowlingRunner {
         Scanner scanner = new Scanner(System.in);
 
         do {
-            System.out.print("Enter pins [0 - 9] ");
+            System.out.print("Enter pins [0 -  " + bowlingGame.getStandingPins() + "] ");
             bowlingGame.roll(scanner.nextInt());
             System.out.println(bowlingGame.toString());
         }
