@@ -20,11 +20,15 @@ public class BowlingGame {
     }
 
     public int score() {
+        return scoreForFrame(frames.size());
+    }
+
+    private int scoreForFrame(int frameNumber) {
         int[] rolls = getRollsAsArray();
         int score = 0;
         int cursorInRolls = 0;
 
-        for (int frameIndex = 0; frameIndex < FRAMES_PER_GAME; frameIndex++) {
+        for (int frameIndex = 0; frameIndex < Math.min(frameNumber, FRAMES_PER_GAME); frameIndex++) {
             Frame frame = frames.get(frameIndex);
             score += frame.getPinsDown();
 
