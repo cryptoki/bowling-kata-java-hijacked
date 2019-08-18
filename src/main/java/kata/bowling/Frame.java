@@ -44,6 +44,7 @@ public class Frame {
 
     @Override
     public String toString() {
-        return isStrike() ? "X" : isSpare() ? rolls.get(0) + ",/" : rolls.get(0) + "," + rolls.get(1);
+        return isStrike() ? "X" : isSpare() ? rolls.get(0) + ",/" :
+                isFinished() ? rolls.get(0) + "," + rolls.get(1) : rolls.get(0).toString();
     }
 }
