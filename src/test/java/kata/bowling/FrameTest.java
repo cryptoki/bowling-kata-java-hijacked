@@ -93,4 +93,9 @@ class FrameTest {
     void valuesBelowZeroAreNotAllowed() {
         assertThrows(IllegalArgumentException.class, () -> frame.roll(-1));
     }
+    @Test
+    void nextRollForFinishedFrameIsNotAllowed() {
+        frame.roll(10);
+        assertThrows(IllegalArgumentException.class, () -> frame.roll(0));
+    }
 }

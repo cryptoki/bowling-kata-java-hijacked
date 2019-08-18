@@ -12,7 +12,8 @@ public class Frame {
 
     public void roll(int pinsDown) {
         if (pinsDown < MIN_PINS
-                || pinsDown > MAX_PINS) {
+                || pinsDown > MAX_PINS
+                || isFinished()) {
             throw new IllegalArgumentException("pins must between [0-10]");
         }
         rolls.add(pinsDown);
