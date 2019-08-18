@@ -27,6 +27,12 @@ public class BowlingGameTest {
     }
 
     @Test
+    void canScorePerfectGame() {
+        rollWithTwentyTimes(10);
+        assertEquals(300, bowlingGame.score());
+    }
+
+    @Test
     void canScoreSpareWithWithFollowedZeros() {
         rollWith(5,5,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0);
         assertEquals(10, bowlingGame.score());

@@ -14,12 +14,18 @@ public class BowlingGame {
         int score = 0;
         int cursorInRolls = 0;
         for (int frame = 1; frame <= 10; frame++) {
-            if (isSpareFrame(cursorInRolls)) {
+
+            if (rolls[cursorInRolls] == MAX_PINS) {
+                score += 10 + rolls[cursorInRolls + 1] + rolls[cursorInRolls + 2];
+                cursorInRolls += 1;
+            }
+            else if (isSpareFrame(cursorInRolls)) {
                 score += 10 + rolls[cursorInRolls + 2];
+                cursorInRolls += 2;
             } else {
                 score += rolls[cursorInRolls] + rolls[cursorInRolls + 1];
+                cursorInRolls += 2;
             }
-            cursorInRolls += 2;
         }
         return score;
     }
