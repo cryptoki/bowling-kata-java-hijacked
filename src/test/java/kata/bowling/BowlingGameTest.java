@@ -44,6 +44,12 @@ public class BowlingGameTest {
         assertEquals(20, bowlingGame.score());
     }
 
+    @Test
+    void canScoreStrikeFollowedByThreeAndFive() {
+        rollWith(10,  3,5,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0);
+        assertEquals(26, bowlingGame.score());
+    }
+
     private void rollWithTwentyTimes(int pinsDown) {
         for (int i = 0; i < 20; i++) {
             bowlingGame.roll(pinsDown);
