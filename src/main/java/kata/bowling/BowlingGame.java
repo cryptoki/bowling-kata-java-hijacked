@@ -1,9 +1,7 @@
 package kata.bowling;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class BowlingGame {
 
@@ -21,25 +19,6 @@ public class BowlingGame {
 
     public int score() {
         return scoreForFrame(frames.size());
-    }
-
-    private int scoreForFrame(int frameNumber) {
-        int[] rolls = getRollsAsArray();
-        int score = 0;
-        int cursorInRolls = 0;
-
-        for (int frameIndex = 0; frameIndex < Math.min(frameNumber, FRAMES_PER_GAME); frameIndex++) {
-            Frame frame = frames.get(frameIndex);
-            score += frame.getPinsDown();
-
-            cursorInRolls += frame.getRolls().size();
-            if (frame.isStrike())
-                score += rolls[cursorInRolls] + rolls[cursorInRolls + 1];
-            else if (frame.isSpare())
-                score += rolls[cursorInRolls];
-        }
-
-        return score;
     }
 
     public boolean isGameOver() {
@@ -68,7 +47,7 @@ public class BowlingGame {
 
         if (isGameOver()) {
             output.append("[")
-                    .append(frames.subList(FRAMES_PER_GAME - 1, frames.size() )
+                    .append(frames.subList(FRAMES_PER_GAME - 1, frames.size())
                             .stream()
                             .map(Frame::toString)
                             .reduce("", (acc, frameOutput) -> acc + frameOutput + ","))
@@ -80,12 +59,32 @@ public class BowlingGame {
             output.append(String.format("%5s ", scoreForFrame(frameIndex)));
         }
 
-        if(isGameOver()) {
+        if (isGameOver()) {
             output.append(System.lineSeparator());
             output.append("The game is over.");
         }
 
         return output.toString();
+    }
+
+
+    private int scoreForFrame(int frameNumber) {
+        int[] rolls = getRollsAsArray();
+        int score = 0;
+        int cursorInRolls = 0;
+
+        for (int frameIndex = 0; frameIndex < Math.min(frameNumber, FRAMES_PER_GAME); frameIndex++) {
+            Frame frame = frames.get(frameIndex);
+            score += frame.getPinsDown();
+
+            cursorInRolls += frame.getRolls().size();
+            if (frame.isStrike())
+                score += rolls[cursorInRolls] + rolls[cursorInRolls + 1];
+            else if (frame.isSpare())
+                score += rolls[cursorInRolls];
+        }
+
+        return score;
     }
 
     private int[] getRollsAsArray() {
