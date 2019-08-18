@@ -26,38 +26,33 @@ public class BowlingGameTest {
 
     @Test
     void canScoreGutterGame() {
-        for (int i = 0; i < 20; i++) {
-            bowlingGame.roll(0);
-        }
+        rollWith(0, 20);
         assertEquals(0, bowlingGame.score());
     }
 
     @Test
     void canScoreAllRollsWithOne() {
-        for (int i = 0; i < 20; i++) {
-            bowlingGame.roll(1);
-        }
+        rollWith(1, 20);
         assertEquals(20, bowlingGame.score());
     }
 
     @Test
     void canScoreSpareWithWithFollowedZeros() {
-        bowlingGame.roll(5);
-        bowlingGame.roll(5);
-        for (int i = 0; i < 18; i++) {
-            bowlingGame.roll(0);
-        }
+        rollWith(5, 2);
+        rollWith(0, 18);
         assertEquals(10, bowlingGame.score());
     }
 
     @Test
     void canScoreSpareFollowedByFive() {
-        bowlingGame.roll(5);
-        bowlingGame.roll(5);
-        bowlingGame.roll(5);
-        for (int i = 0; i < 15; i++) {
-            bowlingGame.roll(0);
-        }
+        rollWith(5, 3);
+        rollWith(0, 15);
         assertEquals(20, bowlingGame.score());
+    }
+
+    private void rollWith(int pinsDown, int times) {
+        for (int i = 0; i < times; i++) {
+            bowlingGame.roll(pinsDown);
+        }
     }
 }
