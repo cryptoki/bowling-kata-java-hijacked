@@ -6,13 +6,22 @@ public class BowlingGame {
 
     private static final int MAX_PINS = 10;
     private static final int FRAMES_PER_GAME = 10;
+    private static final int MAX_ROLLS_FOR_LAST_FRAME = 3;
 
     private LinkedList<Frame> frames = new LinkedList<>();
     private int rollCount = 0;
+    private int rollCountForLastFrame = 0;
 
     public void roll(int pinsDown) {
+        Frame frame = getFrame();
+
         assertThatGameIsNotOver();
-        getFrame().roll(pinsDown);
+        if (frames.size() >= FRAMES_PER_GAME
+            && ++rollCountForLastFrame >= MAX_ROLLS_FOR_LAST_FRAME) {
+            throw new IllegalArgumentException("last frame allowed up to three rolls");
+        }
+
+        frame.roll(pinsDown);
     }
 
     public int score() {

@@ -80,6 +80,13 @@ public class BowlingGameTest {
         assertThrows(IllegalArgumentException.class, () -> rollWith(5));
     }
 
+    @Test
+    void moreThanTenFrameIsNotAllowed() {
+        rollWith(10, 10, 10, 10, 10, 10, 10, 10, 10,
+                0, 0);
+        assertThrows(IllegalArgumentException.class, () -> rollWith(5));
+    }
+
 //    @ParameterizedTest
 //    @CsvSource({
 //            "2,9",
