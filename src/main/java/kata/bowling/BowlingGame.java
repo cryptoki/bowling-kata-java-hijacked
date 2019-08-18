@@ -23,7 +23,12 @@ public class BowlingGame {
 
     public boolean isGameOver() {
         boolean gameIsOver = false;
-        if (frames.size() > FRAMES_PER_GAME) {
+        if (frames.size() == FRAMES_PER_GAME
+                && frames.get(FRAMES_PER_GAME - 1).isFinished()
+                && !frames.get(FRAMES_PER_GAME - 1).isSpare()
+                && !frames.get(FRAMES_PER_GAME - 1).isStrike()) {
+            gameIsOver = true;
+        } else if (frames.size() > FRAMES_PER_GAME) {
             int maxBonusRolls = frames.get(FRAMES_PER_GAME - 1).isStrike() ? 2 : frames.get(FRAMES_PER_GAME - 1).isSpare() ? 1 : 0;
             int finishedRolls = frames
                     .subList(FRAMES_PER_GAME, frames.size())
@@ -45,7 +50,7 @@ public class BowlingGame {
                 .map(Frame::toString)
                 .reduce("", (acc, nextFrameOutput) -> acc + String.format("[%-3s] ", nextFrameOutput)));
 
-        if (isGameOver()) {
+        if (frames.size() >= FRAMES_PER_GAME) {
             output.append("[")
                     .append(frames.subList(FRAMES_PER_GAME - 1, frames.size())
                             .stream()

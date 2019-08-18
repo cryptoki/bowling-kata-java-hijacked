@@ -3,8 +3,7 @@ package kata.bowling;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BowlingGameTest {
 
@@ -90,6 +89,12 @@ public class BowlingGameTest {
         assertThrows(IllegalArgumentException.class, () ->
                 rollWith(10, 10, 10, 10, 10, 10, 10, 10, 10,
                         2, 7, 2));
+    }
+
+    @Test
+    void aGameIsOverAfterTwentyThrees() {
+        rollWithTwentyTimes(3);
+        assertTrue(bowlingGame.isGameOver());
     }
 
     @Test
