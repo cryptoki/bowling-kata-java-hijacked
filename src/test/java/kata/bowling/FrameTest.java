@@ -98,4 +98,23 @@ class FrameTest {
         frame.roll(10);
         assertThrows(IllegalArgumentException.class, () -> frame.roll(0));
     }
+
+
+    @Test
+    void toStringOutput() {
+        frame.roll(2);
+        frame.roll(4);
+        assertEquals("[2,4]", frame.toString());
+    }
+    @Test
+    void toStringOutputForSpare() {
+        frame.roll(2);
+        frame.roll(8);
+        assertEquals("[2,/]", frame.toString());
+    }
+    @Test
+    void toStringOutputForStrike() {
+        frame.roll(10);
+        assertEquals("[X, ]", frame.toString());
+    }
 }

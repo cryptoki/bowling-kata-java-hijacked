@@ -41,4 +41,11 @@ public class Frame {
         return rolls.size() == 2
                 && (rolls.get(0) + rolls.get(1) == MAX_PINS);
     }
+
+    @Override
+    public String toString() {
+        return String.format("[%1s,%1s]",
+                isStrike() ? "X" : rolls.get(0),
+                isStrike() ? "" : isSpare() ? "/" : rolls.get(1));
+    }
 }
