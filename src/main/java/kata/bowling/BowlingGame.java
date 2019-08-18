@@ -2,7 +2,6 @@ package kata.bowling;
 
 import java.util.LinkedList;
 import java.util.stream.IntStream;
-import java.util.stream.StreamSupport;
 
 public class BowlingGame {
 
@@ -20,11 +19,7 @@ public class BowlingGame {
     }
 
     public int score() {
-        int[] rolls = IntStream.concat(
-                frames.stream().flatMapToInt(frame -> frame.getRolls().stream().mapToInt(Integer::intValue)),
-                IntStream.of(0, 0))
-                .toArray();
-
+        int[] rolls = getRollsAsArray();
         int score = 0;
         int cursorInRolls = 0;
 
@@ -58,6 +53,14 @@ public class BowlingGame {
         return gameIsOver;
     }
 
+
+    private int[] getRollsAsArray() {
+        return IntStream.concat(
+                frames.stream().flatMapToInt(frame -> frame.getRolls().stream().mapToInt(Integer::intValue)),
+                IntStream.of(0, 0))
+                .toArray();
+    }
+
     private Frame getFrame() {
         if (frames == null
                 || frames.isEmpty()
@@ -65,14 +68,6 @@ public class BowlingGame {
             frames.add(new Frame());
         }
         return frames.getLast();
-    }
-
-    private boolean isStrikeFrame(int[] rolls, int cursorInRolls) {
-        return rolls[cursorInRolls] == MAX_PINS;
-    }
-
-    private boolean isSpareFrame(int[] rolls, int cursorInRolls) {
-        return rolls[cursorInRolls] + rolls[cursorInRolls + 1] == MAX_PINS;
     }
 
     private void assertThatGameIsNotOver() {

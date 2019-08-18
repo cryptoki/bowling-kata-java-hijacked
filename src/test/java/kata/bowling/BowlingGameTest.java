@@ -2,8 +2,6 @@ package kata.bowling;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -87,25 +85,13 @@ public class BowlingGameTest {
         assertThrows(IllegalArgumentException.class, () -> rollWith(5));
     }
 
-//    @ParameterizedTest
-//    @CsvSource({
-//            "2,9",
-//            "11,0",
-//            "8,10"
-//    })
-//    void aFrameWithElevenPinsIsNotAllowed(int firstRoll, int secondRoll) {
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            bowlingGame.roll(firstRoll);
-//            bowlingGame.roll(secondRoll);
-//        });
-//    }
-//
-//    @Test
-//    void inLastFrameOnlyTwoRollsAllowedWithoutSpareAndStrike() {
-//        assertThrows(IllegalArgumentException.class, () ->
-//                rollWith(10, 10, 10, 10, 10, 10, 10, 10, 10,
-//                        2, 7, 2));
-//    }
+    @Test
+    void inLastFrameOnlyTwoRollsAllowedWithoutSpareAndStrike() {
+        assertThrows(IllegalArgumentException.class, () ->
+                rollWith(10, 10, 10, 10, 10, 10, 10, 10, 10,
+                        2, 7, 2));
+    }
+
 
     private void rollWithTwentyTimes(int pinsDown) {
         for (int i = 0; i < 20; i++) {
