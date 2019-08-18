@@ -89,4 +89,8 @@ class FrameTest {
     void valuesAboveMaxPinsNotAllowed() {
         assertThrows(IllegalArgumentException.class, () -> frame.roll(11));
     }
+    @Test
+    void valuesBelowZeroAreNotAllowed() {
+        assertThrows(IllegalArgumentException.class, () -> frame.roll(-1));
+    }
 }

@@ -5,12 +5,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Frame {
+    private static final int MIN_PINS = 0;
     private static final int MAX_PINS = 10;
 
     private List<Integer> rolls = new ArrayList<>();
 
     public void roll(int pinsDown) {
-        if (pinsDown > MAX_PINS) {
+        if (pinsDown < MIN_PINS
+                || pinsDown > MAX_PINS) {
             throw new IllegalArgumentException("pins must between [0-10]");
         }
         rolls.add(pinsDown);
