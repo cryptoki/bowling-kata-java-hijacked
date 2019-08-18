@@ -5,10 +5,9 @@ import java.util.stream.IntStream;
 
 public class BowlingGame {
 
-    private static final int MAX_PINS = 10;
     private static final int FRAMES_PER_GAME = 10;
-
     private LinkedList<Frame> frames = new LinkedList<>();
+
 
     public void roll(int pinsDown) {
         Frame frame = getFrame();
