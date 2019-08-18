@@ -73,18 +73,25 @@ public class BowlingGameTest {
         assertEquals(133, bowlingGame.score());
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "2,9",
-            "11,0",
-            "8,10"
-    })
-    void aFrameWithElevenPinsIsNotAllowed(int firstRoll, int secondRoll) {
-        assertThrows(IllegalArgumentException.class, () -> {
-            bowlingGame.roll(firstRoll);
-            bowlingGame.roll(secondRoll);
-        });
-    }
+//    @ParameterizedTest
+//    @CsvSource({
+//            "2,9",
+//            "11,0",
+//            "8,10"
+//    })
+//    void aFrameWithElevenPinsIsNotAllowed(int firstRoll, int secondRoll) {
+//        assertThrows(IllegalArgumentException.class, () -> {
+//            bowlingGame.roll(firstRoll);
+//            bowlingGame.roll(secondRoll);
+//        });
+//    }
+//
+//    @Test
+//    void inLastFrameOnlyTwoRollsAllowedWithoutSpareAndStrike() {
+//        assertThrows(IllegalArgumentException.class, () ->
+//                rollWith(10, 10, 10, 10, 10, 10, 10, 10, 10,
+//                        2, 7, 2));
+//    }
 
     private void rollWithTwentyTimes(int pinsDown) {
         for (int i = 0; i < 20; i++) {
