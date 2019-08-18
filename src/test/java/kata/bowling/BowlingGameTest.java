@@ -111,7 +111,20 @@ public class BowlingGameTest {
                         "The game is over.", bowlingGame.toString());
     }
 
-    private void rollWithTwentyTimes(int pinsDown) {
+    @Test
+    void toStringShouldLookPrettyForUnfinishedGame() {
+        rollWith(1, 4,
+                4, 5,
+                6, 4,
+                5, 5);
+        assertEquals(39, bowlingGame.score());
+        assertEquals(
+                "[1,4] [4,5] [6,/] [5,/] " + System.lineSeparator() +
+                        "    5    14    29    39 ", bowlingGame.toString());
+    }
+
+
+        private void rollWithTwentyTimes(int pinsDown) {
         for (int i = 0; i < 20; i++) {
             bowlingGame.roll(pinsDown);
         }
