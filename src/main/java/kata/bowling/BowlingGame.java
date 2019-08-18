@@ -1,6 +1,7 @@
 package kata.bowling;
 
 import java.util.LinkedList;
+import java.util.stream.IntStream;
 import java.util.stream.StreamSupport;
 
 public class BowlingGame {
@@ -19,10 +20,11 @@ public class BowlingGame {
     }
 
     public int score() {
-        int[] rolls = frames
-                .stream()
-                .flatMapToInt(frame -> frame.getRolls().stream().mapToInt(Integer::intValue))
+        int[] rolls = IntStream.concat(
+                frames.stream().flatMapToInt(frame -> frame.getRolls().stream().mapToInt(Integer::intValue)),
+                IntStream.of(0, 0))
                 .toArray();
+
         int score = 0;
         int cursorInRolls = 0;
 
