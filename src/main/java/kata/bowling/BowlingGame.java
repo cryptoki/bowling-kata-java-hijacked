@@ -22,24 +22,9 @@ public class BowlingGame {
     }
 
     public boolean isGameOver() {
-        boolean gameIsOver = false;
-        if (frames.size() == FRAMES_PER_GAME
-                && frames.get(FRAMES_PER_GAME - 1).isFinished()
-                && !frames.get(FRAMES_PER_GAME - 1).isSpare()
-                && !frames.get(FRAMES_PER_GAME - 1).isStrike()) {
-            gameIsOver = true;
-        } else if (frames.size() > FRAMES_PER_GAME) {
-            int maxBonusRolls = frames.get(FRAMES_PER_GAME - 1).isStrike() ? 2 : frames.get(FRAMES_PER_GAME - 1).isSpare() ? 1 : 0;
-            int finishedRolls = frames
-                    .subList(FRAMES_PER_GAME, frames.size())
-                    .stream()
-                    .mapToInt(frame -> frame.getRolls().size()).sum();
-
-            if (finishedRolls >= maxBonusRolls) {
-                gameIsOver = true;
-            }
-        }
-        return gameIsOver;
+        return getLastFrameInGame() != null
+                && getLastFrameInGame().isFinished()
+                && numberOfAvailableBonusRolls() == 0;
     }
 
     @Override
@@ -106,6 +91,24 @@ public class BowlingGame {
             frames.add(new Frame());
         }
         return frames.getLast();
+    }
+
+    private int numberOfAvailableBonusRolls() {
+        Frame lastFrameInGame = getLastFrameInGame();
+        if (lastFrameInGame != null
+                && lastFrameInGame.isFinished()) {
+            int numberOfBonusRolls = lastFrameInGame.isStrike() ? 2 : lastFrameInGame.isSpare() ? 1 : 0;
+            int bonusRollsAlreadyDone = frames.subList(FRAMES_PER_GAME, frames.size())
+                    .stream()
+                    .mapToInt(frame -> frame.getRolls().size()).sum();
+            return numberOfBonusRolls - bonusRollsAlreadyDone;
+        } else {
+            return 0;
+        }
+    }
+
+    private Frame getLastFrameInGame() {
+        return frames.size() >= FRAMES_PER_GAME ? frames.get(FRAMES_PER_GAME - 1) : null;
     }
 
     private void assertThatGameIsNotOver() {
