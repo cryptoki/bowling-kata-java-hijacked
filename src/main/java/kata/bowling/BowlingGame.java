@@ -27,36 +27,6 @@ public class BowlingGame {
                 && numberOfAvailableBonusRolls() == 0;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder output = new StringBuilder();
-        output.append(frames.subList(0, Math.min(FRAMES_PER_GAME - 1, frames.size()))
-                .stream()
-                .map(Frame::toString)
-                .reduce("", (acc, nextFrameOutput) -> acc + String.format("[%-3s] ", nextFrameOutput)));
-
-        if (frames.size() >= FRAMES_PER_GAME) {
-            output.append("[")
-                    .append(frames.subList(FRAMES_PER_GAME - 1, frames.size())
-                            .stream()
-                            .map(Frame::toString)
-                            .reduce("", (acc, frameOutput) -> acc + frameOutput + ","))
-                    .replace(output.length() - 1, output.length(), "]");
-        }
-
-        output.append(System.lineSeparator());
-        for (int frameIndex = 1; frameIndex <= Math.min(frames.size(), FRAMES_PER_GAME); frameIndex++) {
-            output.append(String.format("%5s ", scoreForFrame(frameIndex)));
-        }
-
-        if (isGameOver()) {
-            output.append(System.lineSeparator());
-            output.append("The game is over.");
-        }
-
-        return output.toString();
-    }
-
 
     private int scoreForFrame(int frameNumber) {
         int[] rolls = getRollsAsArray();
@@ -114,5 +84,36 @@ public class BowlingGame {
     private void assertThatGameIsNotOver() {
         if (isGameOver())
             throw new IllegalArgumentException("game is over.");
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder output = new StringBuilder();
+        output.append(frames.subList(0, Math.min(FRAMES_PER_GAME - 1, frames.size()))
+                .stream()
+                .map(Frame::toString)
+                .reduce("", (acc, nextFrameOutput) -> acc + String.format("[%-3s] ", nextFrameOutput)));
+
+        if (frames.size() >= FRAMES_PER_GAME) {
+            output.append("[")
+                    .append(frames.subList(FRAMES_PER_GAME - 1, frames.size())
+                            .stream()
+                            .map(Frame::toString)
+                            .reduce("", (acc, frameOutput) -> acc + frameOutput + ","))
+                    .replace(output.length() - 1, output.length(), "]");
+        }
+
+        output.append(System.lineSeparator());
+        for (int frameIndex = 1; frameIndex <= Math.min(frames.size(), FRAMES_PER_GAME); frameIndex++) {
+            output.append(String.format("%5s ", scoreForFrame(frameIndex)));
+        }
+
+        if (isGameOver()) {
+            output.append(System.lineSeparator());
+            output.append("The game is over.");
+        }
+
+        return output.toString();
     }
 }
