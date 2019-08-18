@@ -1,3 +1,9 @@
+# How to
+## start the game
+```./gradlew run -q --console=plain```
+or in the IDE
+or use plain java cli
+
 # Bowling Kata Java
 ## Domain
 ### Game Setup

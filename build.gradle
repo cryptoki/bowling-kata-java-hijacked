@@ -1,5 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'application'
+
 
 sourceCompatibility = 8
 version = '1.0'
@@ -11,6 +13,14 @@ repositories {
 test {
     useJUnitPlatform()
 }
+
+run{
+
+    standardOutput = System.out
+    standardInput = System.in
+}
+mainClassName = "kata.bowling.BowlingRunner"
+
 
 dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.5.1")
