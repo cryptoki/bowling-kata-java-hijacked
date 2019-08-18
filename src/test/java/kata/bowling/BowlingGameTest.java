@@ -2,8 +2,11 @@ package kata.bowling;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BowlingGameTest {
 
@@ -28,32 +31,59 @@ public class BowlingGameTest {
 
     @Test
     void canScorePerfectGame() {
-        rollWithTwentyTimes(10);
+        rollWith(10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10);
         assertEquals(300, bowlingGame.score());
     }
 
     @Test
     void canScoreSpareWithWithFollowedZeros() {
-        rollWith(5,5,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0);
+        rollWith(5, 5,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         assertEquals(10, bowlingGame.score());
     }
 
     @Test
     void canScoreSpareFollowedByFive() {
-        rollWith(5,5,  5,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0);
+        rollWith(5, 5,
+                5, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         assertEquals(20, bowlingGame.score());
     }
 
     @Test
     void canScoreStrikeFollowedByThreeAndFive() {
-        rollWith(10,  3,5,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0,  0,0);
+        rollWith(10,
+                3, 5,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         assertEquals(26, bowlingGame.score());
     }
 
     @Test
     void canScoreGameInExerciseSheet() {
-        rollWith(1,4,  4,5,  6,4,  5,5,  10,  0,1,  7,3,  6,4,  10,  2,8,6);
+        rollWith(1, 4,
+                4, 5,
+                6, 4,
+                5, 5,
+                10,
+                0, 1,
+                7, 3,
+                6, 4,
+                10,
+                2, 8, 6);
         assertEquals(133, bowlingGame.score());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "2,9",
+            "11,0",
+            "8,10"
+    })
+    void aFrameWithElevenPinsIsNotAllowed(int firstRoll, int secondRoll) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            bowlingGame.roll(firstRoll);
+            bowlingGame.roll(secondRoll);
+        });
     }
 
     private void rollWithTwentyTimes(int pinsDown) {
