@@ -23,6 +23,10 @@ public class Frame {
         return Collections.unmodifiableList(rolls);
     }
 
+    public int getPinsDown() {
+        return rolls.stream().mapToInt(Integer::intValue).sum();
+    }
+
     public boolean isFinished() {
         return rolls.size() == 2
                 || isStrike();

@@ -1,6 +1,7 @@
 package kata.bowling;
 
 import java.util.LinkedList;
+import java.util.stream.StreamSupport;
 
 public class BowlingGame {
 
@@ -25,21 +26,17 @@ public class BowlingGame {
         int score = 0;
         int cursorInRolls = 0;
 
-        for (int frame = 1; frame <= FRAMES_PER_GAME; frame++) {
+        for (int frameIndex = 0; frameIndex < FRAMES_PER_GAME; frameIndex++) {
+            Frame frame = frames.get(frameIndex);
+            score += frame.getPinsDown();
 
-            if (isStrikeFrame(rolls, cursorInRolls)) {
-                score += MAX_PINS + rolls[cursorInRolls + 1] + rolls[cursorInRolls + 2];
-                cursorInRolls += 1;
-            } else if (isSpareFrame(rolls, cursorInRolls)) {
-                score += MAX_PINS + rolls[cursorInRolls + 2];
-                cursorInRolls += 2;
-            } else if (rolls[cursorInRolls] + rolls[cursorInRolls + 1] > MAX_PINS) {
-                throw new IllegalArgumentException();
-            } else {
+            cursorInRolls += frame.getRolls().size();
+            if (frame.isStrike())
                 score += rolls[cursorInRolls] + rolls[cursorInRolls + 1];
-                cursorInRolls += 2;
-            }
+            else if (frame.isSpare())
+                score += rolls[cursorInRolls];
         }
+
         return score;
     }
 
