@@ -1,7 +1,9 @@
 package kata.bowling;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class BowlingGame {
 
@@ -52,6 +54,26 @@ public class BowlingGame {
         return gameIsOver;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(frames.subList(0, Math.min(FRAMES_PER_GAME - 1, frames.size()))
+                .stream()
+                .map(Frame::toString)
+                .reduce("", (acc, nextFrameOutput) -> acc + String.format("[%-3s] ", nextFrameOutput)));
+
+        if (isGameOver()) {
+            sb.append("[")
+                    .append(frames.subList(FRAMES_PER_GAME - 1, frames.size() )
+                            .stream()
+                            .map(frame -> frame.isFinished() ? frame.toString() : frame.getRolls().get(0).toString())
+                            .reduce("", (acc, frameOutput) -> acc + frameOutput + ","))
+                    .replace(sb.length() - 1, sb.length(), "]");
+        }
+
+        return sb.toString();
+    }
 
     private int[] getRollsAsArray() {
         return IntStream.concat(

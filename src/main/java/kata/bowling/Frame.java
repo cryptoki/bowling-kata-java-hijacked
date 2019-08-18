@@ -44,8 +44,6 @@ public class Frame {
 
     @Override
     public String toString() {
-        return String.format("[%1s,%1s]",
-                isStrike() ? "X" : rolls.get(0),
-                isStrike() ? "" : isSpare() ? "/" : rolls.get(1));
+        return isStrike() ? "X" : isSpare() ? rolls.get(0) + ",/" : rolls.get(0) + "," + rolls.get(1);
     }
 }

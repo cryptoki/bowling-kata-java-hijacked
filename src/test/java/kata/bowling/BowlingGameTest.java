@@ -92,6 +92,20 @@ public class BowlingGameTest {
                         2, 7, 2));
     }
 
+    @Test
+    void toStringShouldLookPretty() {
+        rollWith(1, 4,
+                4, 5,
+                6, 4,
+                5, 5,
+                10,
+                0, 1,
+                7, 3,
+                6, 4,
+                10,
+                2, 8, 6);
+        assertEquals("[1,4] [4,5] [6,/] [5,/] [X  ] [0,1] [7,/] [6,/] [X  ] [2,/,6]", bowlingGame.toString());
+    }
 
     private void rollWithTwentyTimes(int pinsDown) {
         for (int i = 0; i < 20; i++) {
