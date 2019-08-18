@@ -11,9 +11,7 @@ public class BowlingGame {
     private int rollCount = 0;
 
     public void roll(int pinsDown) {
-        if (++rollCount > 21) {
-            throw new IllegalArgumentException("the game is over.");
-        }
+        assertThatGameIsNotOver();
         getFrame().roll(pinsDown);
     }
 
@@ -59,5 +57,11 @@ public class BowlingGame {
 
     private boolean isSpareFrame(int[] rolls, int cursorInRolls) {
         return rolls[cursorInRolls] + rolls[cursorInRolls + 1] == MAX_PINS;
+    }
+
+    private void assertThatGameIsNotOver() {
+        if (++rollCount > 21) {
+            throw new IllegalArgumentException("the game is over.");
+        }
     }
 }
