@@ -16,10 +16,7 @@ public class BowlingGame {
         Frame frame = getFrame();
 
         assertThatGameIsNotOver();
-        if (frames.size() >= FRAMES_PER_GAME
-            && ++rollCountForLastFrame >= MAX_ROLLS_FOR_LAST_FRAME) {
-            throw new IllegalArgumentException("last frame allowed up to three rolls");
-        }
+        assertThatTheLastRollIsNotReached();
 
         frame.roll(pinsDown);
     }
@@ -71,6 +68,20 @@ public class BowlingGame {
     private void assertThatGameIsNotOver() {
         if (++rollCount > 21) {
             throw new IllegalArgumentException("the game is over.");
+        }
+    }
+
+    private void assertThatTheLastRollIsNotReached() {
+        if (frames.size() > FRAMES_PER_GAME) {
+            int maxBonusRolls = frames.get(FRAMES_PER_GAME - 1).isStrike() ? 2 : frames.get(FRAMES_PER_GAME - 1).isSpare() ? 1 : 0;
+            int finishedRolls = frames
+                    .subList(FRAMES_PER_GAME + 1, frames.size())
+                    .stream()
+                    .mapToInt(frame -> frame.getRolls().size()).sum();
+
+            if (finishedRolls >= maxBonusRolls) {
+                throw new IllegalArgumentException("the game is over.");
+            }
         }
     }
 }
