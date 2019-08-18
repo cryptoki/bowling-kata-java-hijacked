@@ -73,6 +73,13 @@ public class BowlingGameTest {
         assertEquals(133, bowlingGame.score());
     }
 
+    @Test
+    void moreThanTwentyOneRollsAreNotAllowed() {
+        rollWithTwentyTimes(5);
+        rollWith(5);
+        assertThrows(IllegalArgumentException.class, () -> rollWith(5));
+    }
+
 //    @ParameterizedTest
 //    @CsvSource({
 //            "2,9",

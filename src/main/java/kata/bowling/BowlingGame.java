@@ -5,13 +5,15 @@ import java.util.LinkedList;
 public class BowlingGame {
 
     private static final int MAX_PINS = 10;
-
     private static final int FRAMES_PER_GAME = 10;
-    private static final int TRIES_PER_FRAME = 2;
 
     private LinkedList<Frame> frames = new LinkedList<>();
+    private int rollCount = 0;
 
     public void roll(int pinsDown) {
+        if (++rollCount > 21) {
+            throw new IllegalArgumentException("the game is over.");
+        }
         getFrame().roll(pinsDown);
     }
 
