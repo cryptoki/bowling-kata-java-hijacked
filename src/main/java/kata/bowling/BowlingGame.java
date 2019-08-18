@@ -6,16 +6,12 @@ public class BowlingGame {
 
     private static final int MAX_PINS = 10;
     private static final int FRAMES_PER_GAME = 10;
-    private static final int MAX_ROLLS_FOR_LAST_FRAME = 3;
 
     private LinkedList<Frame> frames = new LinkedList<>();
-    private int rollCount = 0;
-    private int rollCountForLastFrame = 0;
 
     public void roll(int pinsDown) {
         Frame frame = getFrame();
 
-        assertThatGameIsNotOver();
         assertThatTheLastRollIsNotReached();
 
         frame.roll(pinsDown);
@@ -65,17 +61,11 @@ public class BowlingGame {
         return rolls[cursorInRolls] + rolls[cursorInRolls + 1] == MAX_PINS;
     }
 
-    private void assertThatGameIsNotOver() {
-        if (++rollCount > 21) {
-            throw new IllegalArgumentException("the game is over.");
-        }
-    }
-
     private void assertThatTheLastRollIsNotReached() {
         if (frames.size() > FRAMES_PER_GAME) {
             int maxBonusRolls = frames.get(FRAMES_PER_GAME - 1).isStrike() ? 2 : frames.get(FRAMES_PER_GAME - 1).isSpare() ? 1 : 0;
             int finishedRolls = frames
-                    .subList(FRAMES_PER_GAME + 1, frames.size())
+                    .subList(FRAMES_PER_GAME, frames.size())
                     .stream()
                     .mapToInt(frame -> frame.getRolls().size()).sum();
 
