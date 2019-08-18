@@ -12,7 +12,7 @@ public class BowlingGame {
     public void roll(int pinsDown) {
         Frame frame = getFrame();
 
-        assertThatTheLastRollIsNotReached();
+        assertThatGameIsNotOver();
 
         frame.roll(pinsDown);
     }
@@ -43,6 +43,21 @@ public class BowlingGame {
         return score;
     }
 
+    public boolean isGameOver() {
+        boolean gameIsOver = false;
+        if (frames.size() > FRAMES_PER_GAME) {
+            int maxBonusRolls = frames.get(FRAMES_PER_GAME - 1).isStrike() ? 2 : frames.get(FRAMES_PER_GAME - 1).isSpare() ? 1 : 0;
+            int finishedRolls = frames
+                    .subList(FRAMES_PER_GAME, frames.size())
+                    .stream()
+                    .mapToInt(frame -> frame.getRolls().size()).sum();
+
+            if (finishedRolls >= maxBonusRolls) {
+                gameIsOver = true;
+            }
+        }
+        return gameIsOver;
+    }
 
     private Frame getFrame() {
         if (frames == null
@@ -61,17 +76,8 @@ public class BowlingGame {
         return rolls[cursorInRolls] + rolls[cursorInRolls + 1] == MAX_PINS;
     }
 
-    private void assertThatTheLastRollIsNotReached() {
-        if (frames.size() > FRAMES_PER_GAME) {
-            int maxBonusRolls = frames.get(FRAMES_PER_GAME - 1).isStrike() ? 2 : frames.get(FRAMES_PER_GAME - 1).isSpare() ? 1 : 0;
-            int finishedRolls = frames
-                    .subList(FRAMES_PER_GAME, frames.size())
-                    .stream()
-                    .mapToInt(frame -> frame.getRolls().size()).sum();
-
-            if (finishedRolls >= maxBonusRolls) {
-                throw new IllegalArgumentException("the game is over.");
-            }
-        }
+    private void assertThatGameIsNotOver() {
+        if (isGameOver())
+            throw new IllegalArgumentException("game is over.");
     }
 }
