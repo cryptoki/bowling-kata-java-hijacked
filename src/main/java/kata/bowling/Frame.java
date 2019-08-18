@@ -10,6 +10,9 @@ public class Frame {
     private List<Integer> rolls = new ArrayList<>();
 
     public void roll(int pinsDown) {
+        if (pinsDown > MAX_PINS) {
+            throw new IllegalArgumentException("pins must between [0-10]");
+        }
         rolls.add(pinsDown);
     }
 
