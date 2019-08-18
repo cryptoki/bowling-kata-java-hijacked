@@ -27,6 +27,10 @@ public class Frame {
         return rolls.stream().mapToInt(Integer::intValue).sum();
     }
 
+    public int getPinsUp() {
+        return MAX_PINS - getPinsDown();
+    }
+
     public boolean isFinished() {
         return rolls.size() == 2
                 || isStrike();

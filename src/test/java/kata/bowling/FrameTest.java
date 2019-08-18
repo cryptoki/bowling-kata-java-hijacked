@@ -99,6 +99,21 @@ class FrameTest {
         assertThrows(IllegalArgumentException.class, () -> frame.roll(0));
     }
 
+    @ParameterizedTest
+    @CsvSource({"0,10", "1,9", "9,1", "10,0"})
+    void standingPinsAfterOneRoll(int pinsDown, int expectedPinsUp) {
+        frame.roll(pinsDown);
+        assertEquals(expectedPinsUp, frame.getPinsUp());
+    }
+    @Test
+    void standingPinsWithoutAnyRoll() {
+        assertEquals(10, frame.getPinsUp());
+    }
+    @Test
+    void standingPinsAfterStrike() {
+        frame.roll(10);
+        assertEquals(0, frame.getPinsUp());
+    }
 
     @Test
     void toStringOutput() {
