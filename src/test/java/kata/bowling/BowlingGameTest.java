@@ -124,7 +124,7 @@ public class BowlingGameTest {
     }
 
 
-        private void rollWithTwentyTimes(int pinsDown) {
+    private void rollWithTwentyTimes(int pinsDown) {
         for (int i = 0; i < 20; i++) {
             bowlingGame.roll(pinsDown);
         }
