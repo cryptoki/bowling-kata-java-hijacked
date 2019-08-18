@@ -60,23 +60,32 @@ public class BowlingGame {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(frames.subList(0, Math.min(FRAMES_PER_GAME - 1, frames.size()))
+        StringBuilder output = new StringBuilder();
+        output.append(frames.subList(0, Math.min(FRAMES_PER_GAME - 1, frames.size()))
                 .stream()
                 .map(Frame::toString)
                 .reduce("", (acc, nextFrameOutput) -> acc + String.format("[%-3s] ", nextFrameOutput)));
 
         if (isGameOver()) {
-            sb.append("[")
+            output.append("[")
                     .append(frames.subList(FRAMES_PER_GAME - 1, frames.size() )
                             .stream()
                             .map(frame -> frame.isFinished() ? frame.toString() : frame.getRolls().get(0).toString())
                             .reduce("", (acc, frameOutput) -> acc + frameOutput + ","))
-                    .replace(sb.length() - 1, sb.length(), "]");
+                    .replace(output.length() - 1, output.length(), "]");
         }
 
-        return sb.toString();
+        output.append(System.lineSeparator());
+        for (int frameIndex = 1; frameIndex <= Math.min(frames.size(), FRAMES_PER_GAME); frameIndex++) {
+            output.append(String.format("%5s ", scoreForFrame(frameIndex)));
+        }
+
+        if(isGameOver()) {
+            output.append(System.lineSeparator());
+            output.append("The game is over.");
+        }
+
+        return output.toString();
     }
 
     private int[] getRollsAsArray() {

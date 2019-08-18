@@ -104,7 +104,11 @@ public class BowlingGameTest {
                 6, 4,
                 10,
                 2, 8, 6);
-        assertEquals("[1,4] [4,5] [6,/] [5,/] [X  ] [0,1] [7,/] [6,/] [X  ] [2,/,6]", bowlingGame.toString());
+        assertEquals(133, bowlingGame.score());
+        assertEquals(
+                "[1,4] [4,5] [6,/] [5,/] [X  ] [0,1] [7,/] [6,/] [X  ] [2,/,6]" + System.lineSeparator() +
+                        "    5    14    29    49    60    61    77    97   117   133 " + System.lineSeparator() +
+                        "The game is over.", bowlingGame.toString());
     }
 
     private void rollWithTwentyTimes(int pinsDown) {
