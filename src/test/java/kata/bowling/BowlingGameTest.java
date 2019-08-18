@@ -15,16 +15,6 @@ public class BowlingGameTest {
     }
 
     @Test
-    void canRollBall() {
-        bowlingGame.roll(0);
-    }
-
-    @Test
-    void canScoreGame() {
-        assertEquals(0, bowlingGame.score());
-    }
-
-    @Test
     void canScoreGutterGame() {
         rollWithTwentyTimes(0);
         assertEquals(0, bowlingGame.score());
